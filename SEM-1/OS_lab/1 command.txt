@@ -1,0 +1,37 @@
+ls
+echo
+sudo apt install
+gcc -o 
+./
+chmod+x  f  ./f
+nano .Student_Record.sh
+
+cd Desktop
+cat read.txt
+head read.txt
+tail read.txt
+tac read.txt
+
+clear
+exit
+stutdown
+mkdir aa
+kill
+
+cal
+time
+date
+uname
+vim
+
+cp read.txt
+rm read.txt
+mv read.txt
+wc read.txt
+pwd
+
+ping
+history
+passd
+which python
+unzip img.zip
