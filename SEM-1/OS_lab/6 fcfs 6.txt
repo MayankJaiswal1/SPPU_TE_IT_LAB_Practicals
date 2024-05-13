@@ -1,0 +1,62 @@
+#include <stdio.h>
+
+int main() {
+    int pg[20], pgs, frm, frms[10], i, j, k = 0, hit = 0, flag = 0;
+    float hitrt, missrt;
+
+    printf("ENTER THE NO. OF PAGES: ");
+    scanf("%d", &pgs);
+
+    printf("ENTER THE PAGE VALUES:\n");
+    for (i = 0; i < pgs; i++)
+        scanf("%d", &pg[i]);
+
+    printf("ENTER THE FRAME SIZE: ");
+    scanf("%d", &frm);
+
+    // Initialize frames to -1
+    for (i = 0; i < frm; i++)
+        frms[i] = -1;
+
+    printf("INITIAL PAGE VALUES:\n");
+    for (i = 0; i < frm; i++)
+        printf("%d\t", frms[i]);
+
+    printf("\n");
+
+    for (i = 0; i < pgs; i++) {
+        flag = 0;
+
+        for (j = 0; j < frm; j++) {
+            if (pg[i] == frms[j]) {
+                printf("HIT\t");
+                hit++;
+                flag = 1;
+                break;
+            }
+        }
+
+        if (flag == 0) {
+            printf("MISS\t");
+            frms[k] = pg[i];
+            k = (k + 1) % frm; // Move to the next frame using circular queue
+        }
+
+        for (j = 0; j < frm; j++)
+            printf("%d\t", frms[j]);
+
+        printf("\n");
+    }
+
+    printf("\nNO. OF HITS = %d\n", hit);
+    printf("NO. OF MISSES = %d\n", pgs - hit);
+
+    hitrt = (float)hit / (float)pgs;
+    missrt = 1 - hitrt;
+
+    printf("HIT RATIO = %f\n", hitrt);
+    printf("MISS RATIO = %f\n", missrt);
+
+    return 0;
+}
+1 2 3 4 2 1 5 6 2 1 3 3 6
