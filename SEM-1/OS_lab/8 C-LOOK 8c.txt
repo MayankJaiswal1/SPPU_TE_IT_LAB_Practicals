@@ -1,0 +1,102 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+
+int choice, track, no_req, head, head1, distance;
+int disc_reql[100], finish[100];
+
+void menu() {
+    printf("\n\n********MENU*********");
+    printf("\n1. FCFS\n2. SSTF\n3. SCAN\n4. C-LOOK\n5. Exit");
+    printf("\n\nEnter your choice: ");
+    scanf("%d", &choice);
+}
+
+void input() {
+    int i;
+    printf("Enter the total number of tracks: ");
+    scanf("%d", &track);
+    printf("Enter the total number of disc requests: ");
+    scanf("%d", &no_req);
+    printf("\nEnter disc requests in FCFS order:\n");
+    for (i = 0; i < no_req; i++) {
+        scanf("%d", &disc_reql[i]);
+    }
+    printf("\nEnter current head position: ");
+    scanf("%d", &head1);
+}
+ 
+
+void sort() {
+    int temp, i, j;
+    for (i = 0; i < no_req; i++) {
+        for (j = 0; j < no_req; j++) {
+            if (disc_reql[i] < disc_reql[j]) {
+                temp = disc_reql[i];
+                disc_reql[i] = disc_reql[j];
+                disc_reql[j] = temp;
+            }
+        }
+    }
+}
+ 
+
+void clook() {
+    int index, dir, i, distance = 0;
+    head = head1;
+    printf("\nEnter the direction of head (1 - Towards higher disc / 0 - Towards lower disc): ");
+    scanf("%d", &dir);
+    sort();
+    printf("\nSorted Disc requests are: ");
+    for (i = 0; i < no_req; i++) {
+        printf("%d ", disc_reql[i]);
+    }
+
+    for (i = 0; i < no_req; i++) {
+        if (head < disc_reql[i]) {
+            index = i;
+            break;
+        }
+    }
+
+    printf("\nIndex: %d");
+    printf("%d -> ", head);
+
+    if (dir == 1) {
+        sort();
+        for (i = index; i < no_req; i++) {
+            distance += abs(head - disc_reql[i]);
+            head = disc_reql[i];
+            printf("%d -> ", head);
+        }
+
+        for (i = 0; i < index; i++) {
+            distance += abs(head - disc_reql[i]);
+            head = disc_reql[i];
+            printf("%d -> ", head);
+        }
+    } else {
+        sort();
+        for (i = 0; i < index; i++) {
+            distance += abs(head - disc_reql[i]);
+            head = disc_reql[i];
+            printf("%d -> ", head);
+        }
+
+        for (i = index; i < no_req; i++) {
+            distance += abs(head - disc_reql[i]);
+            head = disc_reql[i];
+            printf("%d -> ", head);
+        }
+    }
+
+    printf("End");
+    printf("\nTotal Distance Traversed: %d", distance);
+}
+
+int main() {
+	input();
+	clook();
+}
+
+
