@@ -1,0 +1,126 @@
+// SCAN Disk Scheduling
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+
+int choice, track, no_req, head, head1, distance;
+int disc_req[100], finish[100];
+
+void input()
+{
+    int i;
+	
+	printf("SCAN \n");
+    printf("\nEnter Total Number Of Tracks: ");
+    scanf("%d", &track);
+
+    printf("\nEnter Total Number Of Disk Requests: ");
+    scanf("%d", &no_req);
+
+    printf("\nEnter Disk Requests in FCFS order: ");
+    for (i = 0; i < no_req; i++)
+    {
+        scanf("%d", &disc_req[i]);
+    }
+
+    printf("\nEnter Current Head Position: ");
+    scanf("%d", &head1);
+}
+
+void sort()
+{
+    int i, j, temp;
+
+    for (i = 0; i < no_req; i++)
+    {
+        for (j = 0; j < no_req; j++)
+        {
+            if (disc_req[i] < disc_req[j])
+            {
+                temp = disc_req[i];
+                disc_req[i] = disc_req[j];
+                disc_req[j] = temp;
+            }
+        }
+    }
+}
+
+void scan()
+{
+    int index, dir;
+    int i;
+    distance = 0;
+    head = head1;
+
+    printf("\n 1. Towards Higher Disc(Right) \n 0. Towards Lower Disc (Left) \nEnter The Direction Of The Head: ");
+    scanf("%d", &dir);
+
+    sort();
+    printf("\nSorted Disc Request Are: ");
+    for (i = 0; i < no_req; i++)
+    {
+        printf(" %d", disc_req[i]);
+    }
+
+    i = 0;
+    while (head >= disc_req[i])
+    {
+        index = i;
+        i++;
+    }
+
+    printf("\nindex=%d", index);
+    printf("\n%d=>", head);
+
+    if (dir == 1)
+    {
+        sort();
+        for (i = index; i < no_req; i++)
+        {
+            printf("%d=>", disc_req[i]);
+            distance += abs(head - disc_req[i]);
+            head = disc_req[i];
+        }
+
+        distance += abs(head - (track - 1));
+        printf("%d=>", track - 1);
+        head = track - 1;
+
+        for (i = index; i >= 0; i--)
+        {
+            printf("%d=>", disc_req[i]);
+            distance += abs(head - disc_req[i]);
+            head = disc_req[i];
+        }
+    }
+    else
+    {
+        sort();
+        for (i = index; i >= 0; i--)
+        {
+            printf("%d=>", disc_req[i]);
+            distance += abs(head - disc_req[i]);
+            head = disc_req[i];
+        }
+        distance += abs(head - 0);
+        head = 0;
+        printf("0=>");
+
+        for (i = index + 1; i < no_req; i++)
+        {
+            printf("%d=>", disc_req[i]);
+            distance += abs(head - disc_req[i]);
+            head = disc_req[i];
+        }
+    }
+    printf("End");
+    printf("\nTotal Distance Traversed = %d", distance);
+}
+
+int main()
+{
+	input();
+	scan();
+}
+
+ 45 21 67 90 4 50 89 52 61 87 25
