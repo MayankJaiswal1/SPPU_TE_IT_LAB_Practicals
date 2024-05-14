@@ -1,0 +1,73 @@
+// SSTF Disk Scheduling
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+
+int choice, track, no_req, head, head1, distance;
+int disc_req[100], finish[100];
+
+void input()
+{
+    int i;
+	
+	printf("SSTF \n");
+    printf("\nEnter Total Number Of Tracks: ");
+    scanf("%d", &track);
+
+    printf("\nEnter Total Number Of Disk Requests: ");
+    scanf("%d", &no_req);
+
+    printf("\nEnter Disk Requests in FCFS order: ");
+    for (i = 0; i < no_req; i++)
+    {
+        scanf("%d", &disc_req[i]);
+    }
+
+    printf("\nEnter Current Head Position: ");
+    scanf("%d", &head1);
+}
+
+void sstf()
+{
+    int min, diff;
+    int pending = no_req;
+    int i, distance = 0, index;
+    head = head1;
+
+    for (i = 0; i < no_req; i++)
+    {
+        finish[i] = 0;
+    }
+
+    printf("\n%d=>", head);
+
+    while (pending > 0)
+    {
+        min = 9999;
+        for (i = 0; i < no_req; i++)
+        {
+            diff = abs(head - disc_req[i]);
+            if (finish[i] == 0 && diff < min)
+            {
+                min = diff;
+                index = i;
+            }
+        }
+
+        finish[index] = 1;
+
+        distance += abs(head - disc_req[index]);
+        head = disc_req[index];
+        pending--;
+        printf("%d=>", head);
+    }
+
+    printf("End");
+    printf("\n\nTotal Distance Traversed = %d", distance);
+}
+
+int main()
+{
+	input();
+	sstf();
+}
