@@ -1,0 +1,127 @@
+#include<stdio.h>
+void main()
+{
+	char pro[10]={'A','B','C','D','E','F','G','H','I','J'},seq[10];
+	int avlbl[10],resrc[10],max[10][10],alloc[10][10],need[10][10],i,j,flag=0;
+	int proc,res,count=0,temp[10],temp1[10];
+	printf("ENTER THE NO. OF PROCESS = ");
+	scanf("%d",&proc);
+	printf("ENTER THE NO. OF RESOURCE TYPES = ");
+	scanf("%d",&res);
+	for(i=0;i<proc;i++)
+	{
+		temp[i]=0;
+		temp1[i]=0;
+	}
+	printf("ENTER THE CURENTLY AVAILABLE RESOURCES OF EACH PROCESS(ALLOCATION MATRIX):\n");
+	for(i=0;i<proc;i++)
+	{	
+		printf("FOR PROCESS %c ",pro[i]);
+		for(j=0;j<res;j++)
+			scanf("%d",&alloc[i][j]);
+	}
+	printf("ENTER THE MAXIMUM REQUIRED RESOURCES OF EACH PROCESS(MAXIMUM MATRIX):\n");
+	for(i=0;i<proc;i++)
+	{	
+		printf("FOR PROCESS %c ",pro[i]);
+		for(j=0;j<res;j++)
+			scanf("%d",&max[i][j]);
+	}
+	printf("NEED OF RESOURCES OF EACH PROCESS(NEED MATRIX):");
+	for(i=0;i<proc;i++)
+	{	
+		printf("\nFOR PROCESS %c",pro[i]);
+		for(j=0;j<res;j++)
+			{need[i][j]=max[i][j]-alloc[i][j];
+			printf("\t%d",need[i][j]);}
+	}
+	printf("\nENTER THE RESOURCE IMSTANCES ");
+	for(i=0;i<res;i++)	
+		scanf("%d",&resrc[i]);
+	for(i=0;i<res;i++)
+		for(j=0;j<proc;j++)
+			temp1[i]=temp1[i]+alloc[j][i];
+	printf("AVAILABLE:");	
+	for(i=0;i<res;i++)
+		{
+			avlbl[i]=resrc[i]-temp1[i];
+			printf("%d\t",avlbl[i]);
+		}		
+   loop:for(i=0;i<proc;i++)
+	{
+		if(temp[i]!=1)
+		{
+			for(j=0;j<res;j++)
+			{
+				if(avlbl[j]<need[i][j])
+				{
+					flag=1;	
+				}
+			}			
+			if(flag==0)
+			{
+				printf("\nPROCESS %c EXECUTED",pro[i]);
+				printf("\nAVAILABLE=\t");
+				for(j=0;j<res;j++)			
+				{
+					avlbl[j]=avlbl[j]+alloc[i][j];							
+					printf("%d\t",avlbl[j]);
+				}
+				count++;
+				temp[i]=1;
+				seq[count-1]=pro[i];				
+			}
+			else
+			flag=0;
+		}		
+	}
+	if(count!=proc)
+		goto loop;
+	for(i=0;i<res;i++)
+	if(avlbl[i]==resrc[i])
+	{
+		printf("\nSAFE SEQUENCE:");
+		for(i=0;i<proc;i++)
+		printf("%c\t",seq[i]);
+	}
+}	
+/*			OUTPUT:
+aman@aman:~$ gcc assgn7.c
+aman@aman:~$ ./a.out
+ENTER THE NO. OF PROCESS =5
+ENTER THE NO. OF RESOURCE TYPES =3
+ENTER THE CURENTLY AVAILABLE RESOURCES OF EACH PROCESS(ALLOCATION MATRIX):
+FOR PROCESS A0 1 0
+FOR PROCESS B2 0 0
+FOR PROCESS C3 0 2
+FOR PROCESS D2 1 1
+FOR PROCESS E0 0 2
+ENTER THE MAXIMUM REQUIRED RESOURCES OF EACH PROCESS(MAXIMUM MATRIX):
+FOR PROCESS A7 5 3
+FOR PROCESS B3 2 2
+FOR PROCESS C9 0 2
+FOR PROCESS D2 2 2
+FOR PROCESS E4 3 3
+NEED OF RESOURCES OF EACH PROCESS(NEED MATRIX):
+FOR PROCESS A	7	4	3
+FOR PROCESS B	1	2	2
+FOR PROCESS C	6	0	0
+FOR PROCESS D	0	1	1
+FOR PROCESS E	4	3	1
+ENTER THE RESOURCE IMSTANCES10 5 7
+AVAILABLE:3	3	2	
+PROCESS B EXECUTED
+AVAILABLE=	5	3	2	
+PROCESS D EXECUTED
+AVAILABLE=	7	4	3	
+PROCESS E EXECUTED
+AVAILABLE=	7	4	5	
+PROCESS A EXECUTED
+AVAILABLE=	7	5	5	
+PROCESS C EXECUTED
+AVAILABLE=	10	5	7	
+SAFE SEQUENCE:B	D	E	A	C	aman@aman:~$
+*/ 
+
+
+
