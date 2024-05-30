@@ -1,0 +1,85 @@
+#include<stdio.h>
+void main()
+{
+	int pg[20],pgs,frm,frms[10],i=0,j=0,k=0,hit=0,flag=0,l;
+	float hitrt,missrt;
+	printf("ENTER THE NO. OF PAGES");
+	scanf("%d",&pgs);
+	printf("ENTER THE PAGE VALUES");
+	for(i=0;i<pgs;i++)
+	scanf("%d",&pg[i]);
+	printf("ENTER THE FRAME SIZE");
+	scanf("%d",&frm);
+	printf("INITIAL PAGE VALUES ");
+	for(i=0;i<frm;i++)	
+	frms[i]=-1;	
+	for(i=0;i<frm;i++)
+	printf("%d\t",frms[i]);
+	printf("\n");	
+	for(i=0;i<pgs;i++)
+	{	
+		for(j=0;j<frm;j++)
+		{	
+			if(pg[i]==frms[j])	
+			{	
+				printf("HIT:\t");
+				hit++;
+				flag=1;
+			}
+		}
+		if(flag==0)
+		{
+			frms[k]=pg[i];
+			k++;
+			printf("MISS:\t");		
+		}
+		if(k==frm)
+		k=0;
+		for(l=0;l<frm;l++)
+		printf("%d\t",frms[l]);
+		printf("\n");
+		flag=0;
+	}
+	printf("NO. OF HITS =%d",hit);
+	hitrt=(float)hit/(float)pgs;
+	missrt=1-hitrt;
+	printf("\nHIT RATIO= %f",hitrt);
+	printf("\nMISS RATIO= %f",missrt);
+	
+}
+/*		OUTPUT
+aman@HP-Pavilion-15:~$ gcc assgn8.c
+aman@HP-Pavilion-15:~$ ./a.out
+ENTER THE NO. OF PAGES12
+ENTER THE PAGE VALUES5
+4
+7
+5
+9
+3
+6
+5
+9
+4
+6
+7
+ENTER THE FRAME SIZE3
+INITIAL PAGE VALUES -1	-1	-1	
+MISS:	5	-1	-1	
+MISS:	5	4	-1	
+MISS:	5	4	7	
+HIT:	5	4	7	
+MISS:	9	4	7	
+MISS:	9	3	7	
+MISS:	9	3	6	
+MISS:	5	3	6	
+MISS:	5	9	6	
+MISS:	5	9	4	
+MISS:	6	9	4	
+MISS:	6	7	4	
+NO. OF HITS =1
+HIT RATIO= 0.083333
+MISS RATIO= 0.916667aman@HP-Pavilion-15:~$ 
+*/
+
+
