@@ -1,0 +1,8 @@
+start 350
+MOVEM A,B
+MOVER B,C
+ADD A,40
+SUB A,B
+D DC 10
+E DS 500
+END

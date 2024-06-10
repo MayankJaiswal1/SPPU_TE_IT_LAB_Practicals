@@ -1,0 +1,7 @@
+start 100
+L: MOVEM A,20
+MOVER B,10
+ADD C,30
+A DC 3
+B DS 200
+END
