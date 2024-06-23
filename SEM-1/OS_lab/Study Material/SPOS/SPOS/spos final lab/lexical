@@ -1,0 +1,42 @@
+#include<stdio.h>
+void main()
+
+{
+int i=0,j=0,k=0,l=0;
+char al[20],id[20],op[20],cons[20];
+
+printf("enter the input equatio\n");
+scanf("%s",al);
+puts(al);
+
+
+for(i=0;i<6;i++)
+{
+   if(isalpha(al[i]))
+ {
+    id[k]=al[i];
+    k++;
+ }
+  else if(isdigit(al[i]))
+   {
+	cons[j]=al[i];
+	j++;
+   }
+else
+{
+op[l]=al[i];
+l++;
+}
+}
+id[k]='\0';
+printf("id are %s\n",id);
+puts(op);
+puts(cons);
+}
+----------------------output--------------------------
+enter the input equatio
+a+b=9
+a+b=9
+id are ab
++=
+9
