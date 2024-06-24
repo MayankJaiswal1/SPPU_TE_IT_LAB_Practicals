@@ -1,0 +1,31 @@
+
+#!/bin/sh
+echo " plz enter two no "
+
+read n1
+
+read n2
+
+echo “$n1”
+echo “$n2”
+
+while true
+do
+
+echo  “enter case no”
+read c
+
+case $a in
+
+1))r=$((n1+n2));;
+2))r=$((n1-n2));;
+3))r=$((n1*n2));;
+4))r=$((n1/n2));;
+5))exit
+Esac
+
+echo "result=$r"
+
+done
+
+
