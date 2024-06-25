@@ -1,0 +1,54 @@
+/*system program for process handling*/
+#include <stdio.h>
+#include <sys/types.h>
+#include <unistd.h> 
+int main ()
+{
+int  pid_t,child_pid;
+printf ("the main program process ID is %d\n", (int) getpid ());
+child_pid = fork ();
+if (child_pid != 0) 
+{     
+printf ("this is the parent process, with id %d\n", (int) getpid ());
+printf ("the child’s process ID is %d\n", (int) child_pid);
+}   
+else
+printf ("this is the child process, with id %d\n", (int) getpid ());
+return 0;
+}
+--------------------output-----------------------
+the main program process ID is 1823
+this is the parent process, with id 1823
+the child’s process ID is 1824
+
+/*system call for listing files and directories */
+
+#include<stdio.h>
+int main()
+{
+int r;
+r=system("ls -l");
+return r;
+}
+
+---------------output------------------
+drwxr-xr-x 2 saurabh saurabh     4096 2014-06-18 11:02 tb4
+-rw-r--r-- 1 saurabh saurabh       68 2014-06-18 11:20 tb4.c
+-rw-r--r-- 1 saurabh saurabh       26 2014-06-18 11:21 tb4.txt
+-rw-r--r-- 1 saurabh saurabh       68 2014-06-20 11:13 tb.c
+-rwxr-xr-x 1 saurabh saurabh     7137 2014-06-18 11:24 tbo4
+drwxr-xr-x 2 saurabh saurabh     4096 2014-06-15 11:32 Templates
+-rwxr-xr-x 1 saurabh saurabh       40 2014-06-30 20:59 temp.sh
+-rwxr-xr-x 1 saurabh saurabh     8214 2014-08-28 17:01 test
+-rw-r--r-- 1 saurabh saurabh       78 2014-08-28 15:58 test.c
+-rw-r--r-- 1 saurabh saurabh      860 2014-08-28 16:00 test.o
+-rwxr-xr-x 1 saurabh saurabh     7138 2014-08-28 16:02 test.out
+-rw-r--r-- 1 saurabh saurabh      860 2014-08-28 16:27 t.o
+-rw-r--r-- 1 saurabh saurabh       81 2014-07-16 22:55 try.c
+-rwxr-xr-x 1 saurabh saurabh     7143 2014-06-16 12:17 v
+drwxr-xr-x 2 saurabh saurabh     4096 2014-06-15 11:32 Videos
+-rwxr-xr-x 1 saurabh saurabh     7138 2014-06-16 12:27 w
+-rw-r--r-- 1 saurabh saurabh     1878 2014-09-10 10:01 working_bank.c
+
+
+
